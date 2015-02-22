@@ -17,22 +17,22 @@
 	echo '</head><body><div align="center">';
 	$retime = 15;
 	if (empty($_SERVER["QUERY_STRING"]))
-		Redirect(SELF.'?level=1', true);
+		Redirect(SELF.'?level=0', true);
 	echo '<table align="center"><form>';
-	if (!isset($_GET['levelup']) && isset($_GET["level"]) && $_GET["level"] <= count($img))
+	if (!isset($_GET['levelup']) && isset($_GET["level"]) && $_GET["level"] < count($img))
 	{
-		$style = array(
-		1 => 'background-image: url(images/'.$_GET["level"].'/'.$img[$_GET["level"]][0].'); background-repeat: no-repeat; background-size: 100% 100%; height: 330px; width: 355px;',
-		2 => 'background-image: url(images/'.$_GET["level"].'/'.$img[$_GET["level"]][1].'); background-repeat: no-repeat; background-size: 100% 100%; height: 330px; width: 355px;',
-		3 => 'background-image: url(images/'.$_GET["level"].'/'.$img[$_GET["level"]][2].'); background-repeat: no-repeat; background-size: 100% 100%; height: 330px; width: 355px;',
-		4 => 'background-image: url(images/'.$_GET["level"].'/'.$img[$_GET["level"]][3].'); background-repeat: no-repeat; background-size: 100% 100%; height: 330px; width: 355px;',
-		);
 		$_SESSION['level'] = $_GET["level"];
-		if ((int)$_GET["level"] == 1)
+		if ((int)$_GET["level"] == 0)
 		{
 			$_SESSION['accept'] = 0;
 			$_SESSION['errors'] = 0;
 		}
+		$style = array(
+		1 => 'background-image: url(images/'.$img[$_GET["level"]]['folder'].'/'.$img[$_GET["level"]][0].'); background-repeat: no-repeat; background-size: 100% 100%; height: 330px; width: 355px;',
+		2 => 'background-image: url(images/'.$img[$_GET["level"]]['folder'].'/'.$img[$_GET["level"]][1].'); background-repeat: no-repeat; background-size: 100% 100%; height: 330px; width: 355px;',
+		3 => 'background-image: url(images/'.$img[$_GET["level"]]['folder'].'/'.$img[$_GET["level"]][2].'); background-repeat: no-repeat; background-size: 100% 100%; height: 330px; width: 355px;',
+		4 => 'background-image: url(images/'.$img[$_GET["level"]]['folder'].'/'.$img[$_GET["level"]][3].'); background-repeat: no-repeat; background-size: 100% 100%; height: 330px; width: 355px;',
+		);
 		echo '<tr><td colspan="2" align="center"><h2>'.$locale[1].'</h2></td></tr>';
 		echo '<tr><td><input type="button" id="i1" style="'.$style[1].'" /></td>';
 		echo '<td><input type="button" id="i2" style="'.$style[2].'" /></td></tr>';

@@ -20,5 +20,8 @@
 	echo '<tr><td><a href="">'.$locale[11].'</a></td></tr>';
 	echo '<tr><td><a href="">'.$locale[12].'</a></td></tr>';
 	echo '</table>';
+
+shuffle($img);
+print_r($img);
 	echo '</div></body></html>';
 ?>
