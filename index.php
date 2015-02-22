@@ -3,8 +3,7 @@
  * @copyright (c) 2014 - 2015 lovepsone
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  **/
-	require_once 'maincore.php';
-
+	require 'maincore.php';
 	echo '<!DOCTYPE html>';
 	echo '<html xmlns="http://www.w3.org/1999/xhtml">';
 	echo '<head>';
@@ -16,12 +15,12 @@
 	echo '<script type="text/javascript" src="script.js"></script>';
 	echo '</head><body><div align="center">';
 
+	unset($_SESSION['img']);
+
 	echo '<table align="center"><tr><td><a href="FourthExtra.php">'.$locale[10].'</a></td></tr>';
 	echo '<tr><td><a href="">'.$locale[11].'</a></td></tr>';
 	echo '<tr><td><a href="">'.$locale[12].'</a></td></tr>';
 	echo '</table>';
 
-shuffle($img);
-print_r($img);
 	echo '</div></body></html>';
 ?>

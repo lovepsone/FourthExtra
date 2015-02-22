@@ -3,7 +3,7 @@
  * @copyright (c) 2014 - 2015 lovepsone
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  **/
-	require_once 'maincore.php';
+	require 'maincore.php';
 
 	echo '<!DOCTYPE html>';
 	echo '<html xmlns="http://www.w3.org/1999/xhtml">';
@@ -16,10 +16,23 @@
 	echo '<script type="text/javascript" src="script.js"></script>';
 	echo '</head><body><div align="center">';
 	$retime = 15;
-	if (empty($_SERVER["QUERY_STRING"]))
-		Redirect(SELF.'?level=0', true);
+
 	echo '<table align="center"><form>';
-	if (!isset($_GET['levelup']) && isset($_GET["level"]) && $_GET["level"] < count($img))
+	if (empty($_SERVER["QUERY_STRING"]))
+	{
+		shuffle($img);
+		$_SESSION['img'] = $img;
+		shuffle($_SESSION['img']);
+		//ReturnForm(1, SELF.'?level=1001');
+		header("Location: FourthExtra.php");
+		exit;
+		//Redirect(SELF.'?level=1001', true);
+	}
+	else if (isset($_GET["level"]) && (int)$_GET["level"] == 1001)
+	{
+		Redirect(SELF.'?level=0', true);
+	}
+	else if (!isset($_GET['levelup']) && isset($_GET["level"]) && $_GET["level"] < count($img))
 	{
 		$_SESSION['level'] = $_GET["level"];
 		if ((int)$_GET["level"] == 0)
@@ -27,11 +40,12 @@
 			$_SESSION['accept'] = 0;
 			$_SESSION['errors'] = 0;
 		}
+		//print_r();
 		$style = array(
-		1 => 'background-image: url(images/'.$img[$_GET["level"]]['folder'].'/'.$img[$_GET["level"]][0].'); background-repeat: no-repeat; background-size: 100% 100%; height: 330px; width: 355px;',
-		2 => 'background-image: url(images/'.$img[$_GET["level"]]['folder'].'/'.$img[$_GET["level"]][1].'); background-repeat: no-repeat; background-size: 100% 100%; height: 330px; width: 355px;',
-		3 => 'background-image: url(images/'.$img[$_GET["level"]]['folder'].'/'.$img[$_GET["level"]][2].'); background-repeat: no-repeat; background-size: 100% 100%; height: 330px; width: 355px;',
-		4 => 'background-image: url(images/'.$img[$_GET["level"]]['folder'].'/'.$img[$_GET["level"]][3].'); background-repeat: no-repeat; background-size: 100% 100%; height: 330px; width: 355px;',
+		1 => 'background-image: url(images/'.$_SESSION['img'][$_GET["level"]]['folder'].'/'.$_SESSION['img'][$_GET["level"]][0].'); background-repeat: no-repeat; background-size: 100% 100%; height: 330px; width: 355px;',
+		2 => 'background-image: url(images/'.$_SESSION['img'][$_GET["level"]]['folder'].'/'.$_SESSION['img'][$_GET["level"]][1].'); background-repeat: no-repeat; background-size: 100% 100%; height: 330px; width: 355px;',
+		3 => 'background-image: url(images/'.$_SESSION['img'][$_GET["level"]]['folder'].'/'.$_SESSION['img'][$_GET["level"]][2].'); background-repeat: no-repeat; background-size: 100% 100%; height: 330px; width: 355px;',
+		4 => 'background-image: url(images/'.$_SESSION['img'][$_GET["level"]]['folder'].'/'.$_SESSION['img'][$_GET["level"]][3].'); background-repeat: no-repeat; background-size: 100% 100%; height: 330px; width: 355px;',
 		);
 		echo '<tr><td colspan="2" align="center"><h2>'.$locale[1].'</h2></td></tr>';
 		echo '<tr><td><input type="button" id="i1" style="'.$style[1].'" /></td>';
@@ -54,7 +68,7 @@
 		echo '<tr><td><h2 style="color:red;" align="center">'.$locale[6].'</h2></td></tr>';
 		ReturnForm($retime, SELF.'?level='.($_SESSION['level']+1));
 	}
-	else
+	elseif (isset($_GET["level"]) && (int)$_GET["level"] != 1001)
 	{
 		echo '<tr><td colspan="2" align="center"><h2>'.$locale[7].'</h2></td></tr>';
 		echo '<tr><td colspan="2" align="center">'.$locale[2].'<font style="color:green;">'.$locale[3].'['.$_SESSION['accept'].']</font> <font style="color:red;">'.$locale[4].'['.$_SESSION['errors'].']</font></td></tr>';
