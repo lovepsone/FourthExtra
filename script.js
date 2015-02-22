@@ -22,6 +22,6 @@ $(document).ready(function()
 	$("#regame").click(function()
 	{
 		window.status = '';
-		window.location = 'index.php';
+		window.location = 'FourthExtra.php';
 	});
 });
